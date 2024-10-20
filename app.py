@@ -78,7 +78,7 @@ def login_page():
             st.session_state.users[user_id] = new_user
             st.session_state.current_user = new_user
             st.session_state.current_page = "main"
-            st.experimental_rerun()
+            st.rerun()
 
 def render_chat_window(other_user_id: str):
     """Render a chat window for a specific user"""
@@ -111,7 +111,7 @@ def render_chat_window(other_user_id: str):
                 timestamp=datetime.datetime.now()
             )
             st.session_state.messages.append(new_message)
-            st.experimental_rerun()
+            st.rerun()
     
     # Display messages
     with chat_container:
@@ -165,7 +165,7 @@ def render_group_chat(group_id: str):
                 timestamp=datetime.datetime.now()
             )
             st.session_state.messages.append(new_message)
-            st.experimental_rerun()
+            st.rerun()
     
     # Display messages
     with chat_container:
@@ -224,7 +224,7 @@ def main_page():
                         created_at=datetime.datetime.now()
                     )
                     st.session_state.groups[group_id] = new_group
-                    st.experimental_rerun()
+                    st.rerun()
         
         # Display existing groups
         if st.session_state.groups:
@@ -249,7 +249,7 @@ def main_page():
         if st.button("🚪 Logout"):
             st.session_state.current_user = None
             st.session_state.current_page = "login"
-            st.experimental_rerun()
+            st.rerun()
     
     # Active chat windows
     for chat_id in list(st.session_state.active_chats):
@@ -261,7 +261,7 @@ def main_page():
             
             if st.button("Close Chat", key=f"close_{chat_id}"):
                 st.session_state.active_chats.remove(chat_id)
-                st.experimental_rerun()
+                st.rerun()
 
 def main():
     init_session_state()
