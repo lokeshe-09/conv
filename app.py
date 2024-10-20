@@ -186,7 +186,7 @@ def main_page():
     with st.sidebar:
         st.title("👥 Online Users")
         for user_id, user in st.session_state.users.items():
-            if user_id != st.session_state.current_user.id:
+            if user_id != st.session_state.current_user.id and user.online:
                 col1, col2 = st.columns([3, 1])
                 with col1:
                     st.write(f"{'🟢' if user.online else '⚫'} {user.name}")
@@ -247,6 +247,7 @@ def main_page():
     
     with col2:
         if st.button("🚪 Logout"):
+            st.session_state.users[st.session_state.current_user.id].online = False
             st.session_state.current_user = None
             st.session_state.current_page = "login"
             st.rerun()
